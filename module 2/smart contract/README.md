@@ -1,4 +1,4 @@
-#Bank Application
+#Smart Contract Management
 
 where we have depositing some amount and withdrawling the same 
 
