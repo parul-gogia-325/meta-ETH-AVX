@@ -1,10 +1,24 @@
-# Hardhat Boilerplate
+# Connecting Local Hardhat Network with Remix
+here will connect remix ide to local hardhat network
 
-This repository contains a sample project that you can use as the starting point
-for your Ethereum project. It's also a great fit for learning the basics of
-smart contract development.
 
-## Quick start
+## Description
+
+5 major steps to follow:
+1. Go to Project Directory
+2. Run remixd Command
+3. Open Remix IDE and Connect with Local Host
+4.  Create a Contract
+5.  deploy the contract
+
+## Getting Started
+
+### Installing
+
+* How/where to download your program
+* Any modifications needed to be made to files/folders
+
+### Executing program
 
 The first things you need to do are cloning this repository and installing its
 dependencies:
@@ -35,12 +49,22 @@ cd frontend
 npm install
 npm start
 ```
-
-After installing npm node to your local computer now its time to connect with online remix ide 
-
-where will change our environment to hardhat provider for more info follow my loom video...........
+## Help
+for more info follow my loom video...........
 
 here is the link - https://www.loom.com/share/f91c6a2d791345a7b8a518042e7c9469?sid=b22b4639-e72f-4859-b2bd-82aa2fc47a81
+
+## Authors
+
+Parul Gogia 
+contact info: 
+https://www.linkedin.com/in/parul-gogia/
+
+
+## License
+
+This project is licensed under the Parul gogia License - see the LICENSE.md file for details
+
 
 
 
