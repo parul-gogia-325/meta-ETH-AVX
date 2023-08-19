@@ -1,3 +1,4 @@
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
@@ -20,28 +21,43 @@ contract DegenGamingToken is ERC20, Ownable {
         return super.transfer(to, amount);
     }
 
-    // Modified redeem function
-    function redeem(uint256 amount) public {
-        require(amount > 0, "Amount must be greater than 0");
-        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
-
-        // Replace the following line with the logic for prize selection and cost deduction
-        // For example, you can emit an event to indicate successful redemption and deduct the cost from the user's balance.
-        // For simplicity, let's assume the cost is 1 token per prize.
-        uint256 prizeCost = amount; // In this example, each prize costs 1 token.
-
-        // Add your prize selection logic here
-        
-        // Deduct the cost from the user's balance
-        _burn(msg.sender, prizeCost);
-
-        // Emit an event to indicate successful redemption
-        emit RedeemedPrize(msg.sender, prizeCost);
-
-        // Add additional actions here, such as transferring the prize or providing other rewards
+    enum Prize {
+        None,
+        Prize1,
+        Prize2,
+        Prize3
     }
 
-    // Rest of the functions
+    mapping(address => Prize) private userPrizes;
 
-    event RedeemedPrize(address indexed user, uint256 cost);
+    function redeem(Prize selectedPrize) public {
+        uint256 prizeCost = 1; // Each prize costs 1 token.
+
+        require(balanceOf(msg.sender) >= prizeCost, "Insufficient balance");
+        require(selectedPrize != Prize.None, "Invalid prize selection");
+
+        _burn(msg.sender, prizeCost);
+
+        userPrizes[msg.sender] = selectedPrize;
+
+        emit RedeemedPrize(msg.sender, prizeCost, selectedPrize);
+        console.log("Redemption successful. You selected prize:", selectedPrize);
+    }
+
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
+
+    function getRandomPrize() internal view returns (Prize) {
+        uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender)));
+        uint8 prizeIndex = uint8(randomNumber % uint8(Prize.Prize3) + 1);
+        return Prize(prizeIndex);
+    }
+
+    function getUserPrize(address user) public view returns (Prize) {
+        return userPrizes[user];
+    }
+
+    event RedeemedPrize(address indexed user, uint256 cost, Prize prizeType);
 }
+
